@@ -24,6 +24,7 @@ class Sitemap_Action extends Typecho_Widget implements Widget_Interface_Do
 
 		header("Content-Type: application/xml");
 		echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+		echo "<?xml-stylesheet type='text/xsl' href='" . $options->pluginUrl . "/Sitemap/sitemap.xsl'?>\n";
 		echo "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
 		foreach($pages AS $page) {
 			$type = $page['type'];
@@ -39,6 +40,9 @@ class Sitemap_Action extends Typecho_Widget implements Widget_Interface_Do
 			echo "\t</url>\n";
 		}
 		foreach($articles AS $article) {
+			// 如果加密则跳过
+			if ($article['password']) continue;
+
 			$type = $article['type'];
 			$article['categories'] = $db->fetchAll($db->select()->from('table.metas')
 					->join('table.relationships', 'table.relationships.mid = table.metas.mid')
