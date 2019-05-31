@@ -69,6 +69,16 @@ class Sitemap_Action extends Typecho_Widget implements Widget_Interface_Do
 		foreach($tags AS $tag) {
 			$type = $tag['type'];
 			$routeExists = (NULL != Typecho_Router::get($type));
+			
+			// 如果该标签下的文章均是加密的，则跳过这个标签
+			$tag['skip'] = True;
+			$tag_pages = $db->fetchAll($db->select()->from('table.contents')
+			->join('table.relationships', 'table.relationships.cid = table.contents.cid')
+			->where('table.relationships.mid = ?', $tag['mid']));
+			foreach($tag_pages AS $tag_page)
+				if (! $tag_page['password']) $tag['skip'] = False;
+			if ($tag['skip']) continue;	
+
 			$tag['pathinfo'] = $routeExists ? Typecho_Router::url($type, $tag) : '#';
 			$tag['permalink'] = Typecho_Common::url($tag['pathinfo'], $options->index);
 			echo "\t<url>\n";
