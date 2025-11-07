@@ -50,6 +50,10 @@ EOF;
             $freq = $this->options->plugin('Sitemap')->updateFreq === 'monthly' ? 'monthly' : 'weekly';
 
             while ($posts->next()) {
+                // 如果加密则跳过
+                if ($posts->password)
+                    continue;
+
                 $sitemap .= <<<EOF
             <url>
                 <loc>{$posts->permalink}</loc>
@@ -84,6 +88,22 @@ EOF;
             $freq = $this->options->plugin('Sitemap')->updateFreq;
 
             while ($categories->next()) {
+                // 检查该分类下是否有非加密文章
+                $postsInCategory = $this->db->fetchAll($this->db->select('password')
+                    ->from('table.contents')
+                    ->join('table.relationships', 'table.contents.cid = table.relationships.cid')
+                    ->where('table.relationships.mid = ?', $categories->mid)
+                    ->where('table.contents.type = ?', 'post')
+                    ->where('table.contents.status = ?', 'publish')
+                    ->where('table.contents.created < ?', $this->options->time));
+
+                // 如果该分类下没有文章，或所有文章都有密码，则跳过
+                if (empty($postsInCategory) || !array_filter($postsInCategory, function($post) {
+                    return empty($post['password']);
+                })) {
+                    continue;
+                }
+
                 $sitemap .= <<<EOF
             <url>
                 <loc>{$categories->permalink}</loc>
@@ -100,6 +120,22 @@ EOF;
             $freq = $this->options->plugin('Sitemap')->updateFreq;
 
             while ($tags->next()) {
+                // 检查该标签下是否有非加密文章
+                $postsInTag = $this->db->fetchAll($this->db->select('password')
+                    ->from('table.contents')
+                    ->join('table.relationships', 'table.contents.cid = table.relationships.cid')
+                    ->where('table.relationships.mid = ?', $tags->mid)
+                    ->where('table.contents.type = ?', 'post')
+                    ->where('table.contents.status = ?', 'publish')
+                    ->where('table.contents.created < ?', $this->options->time));
+
+                // 如果该标签下没有文章，或所有文章都有密码，则跳过
+                if (empty($postsInTag) || !array_filter($postsInTag, function($post) {
+                    return empty($post['password']);
+                })) {
+                    continue;
+                }
+
                 $sitemap .= <<<EOF
             <url>
                 <loc>{$tags->permalink}</loc>
