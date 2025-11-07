@@ -16,7 +16,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) {
  *
  * @package 站点地图插件
  * @author joyqi
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.2.1
  * @link https://github.com/he0119/typecho-sitemap
  */
