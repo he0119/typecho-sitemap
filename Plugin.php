@@ -18,7 +18,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) {
  * @author joyqi
  * @version 1.0.0
  * @since 1.2.1
- * @link https://github.com/joyqi/typecho-plugin-sitemap
+ * @link https://github.com/he0119/typecho-sitemap
  */
 class Plugin implements PluginInterface
 {
