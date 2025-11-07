@@ -103,9 +103,7 @@ EOF;
 
                 // 如果该分类下没有文章，或所有文章都有密码，则跳过
                 if (
-                    empty($postsInCategory) || !array_filter($postsInCategory, function ($post) {
-                        return empty($post['password']);
-                    })
+                    empty($postsInCategory) || !array_filter($postsInCategory, fn($post) => empty($post['password']))
                 ) {
                     continue;
                 }
@@ -137,9 +135,7 @@ EOF;
 
                 // 如果该标签下没有文章，或所有文章都有密码，则跳过
                 if (
-                    empty($postsInTag) || !array_filter($postsInTag, function ($post) {
-                        return empty($post['password']);
-                    })
+                    empty($postsInTag) || !array_filter($postsInTag, fn($post) => empty($post['password']))
                 ) {
                     continue;
                 }
