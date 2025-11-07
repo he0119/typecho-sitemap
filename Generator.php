@@ -93,13 +93,14 @@ EOF;
 
             while ($categories->next()) {
                 // 检查该分类下是否有非加密文章
-                $postsInCategory = $this->db->fetchAll($this->db->select('password')
-                    ->from('table.contents')
-                    ->join('table.relationships', 'table.contents.cid = table.relationships.cid')
-                    ->where('table.relationships.mid = ?', $categories->mid)
-                    ->where('table.contents.type = ?', 'post')
-                    ->where('table.contents.status = ?', 'publish')
-                    ->where('table.contents.created < ?', $this->options->time));
+                $postsInCategory = $this->db->fetchAll(
+                    $this->db->select('password')
+                        ->from('table.contents')
+                        ->join('table.relationships', 'table.contents.cid = table.relationships.cid')
+                        ->where('table.relationships.mid = ?', $categories->mid)
+                        ->where('table.contents.type = ?', 'post')
+                        ->where('table.contents.status = ?', 'publish')
+                );
 
                 // 如果该分类下没有文章，或所有文章都有密码，则跳过
                 if (
@@ -125,13 +126,14 @@ EOF;
 
             while ($tags->next()) {
                 // 检查该标签下是否有非加密文章
-                $postsInTag = $this->db->fetchAll($this->db->select('password')
-                    ->from('table.contents')
-                    ->join('table.relationships', 'table.contents.cid = table.relationships.cid')
-                    ->where('table.relationships.mid = ?', $tags->mid)
-                    ->where('table.contents.type = ?', 'post')
-                    ->where('table.contents.status = ?', 'publish')
-                    ->where('table.contents.created < ?', $this->options->time));
+                $postsInTag = $this->db->fetchAll(
+                    $this->db->select('password')
+                        ->from('table.contents')
+                        ->join('table.relationships', 'table.contents.cid = table.relationships.cid')
+                        ->where('table.relationships.mid = ?', $tags->mid)
+                        ->where('table.contents.type = ?', 'post')
+                        ->where('table.contents.status = ?', 'publish')
+                );
 
                 // 如果该标签下没有文章，或所有文章都有密码，则跳过
                 if (
