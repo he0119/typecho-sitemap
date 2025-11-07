@@ -7,12 +7,12 @@ use Typecho\Widget\Helper\Form;
 use Utils\Helper;
 
 if (!defined('__TYPECHO_ROOT_DIR__')) {
-  exit;
+    exit;
 }
 
 /**
  * 网站 Sitemap 生成器
- * 
+ *
  * @package Sitemap
  * @author Hanny, 禾令奇, uy/sun
  * @version 1.0.3
@@ -36,53 +36,53 @@ if (!defined('__TYPECHO_ROOT_DIR__')) {
  */
 class Plugin implements PluginInterface
 {
-  /**
-   * 激活插件方法,如果激活失败,直接抛出异常
-   * 
-   * @access public
-   * @return string
-   * @throws Exception
-   */
-  public static function activate()
-  {
-    Helper::addRoute('sitemap', '/sitemap.xml', 'Sitemap_Action', 'action');
-    return _t('插件已激活');
-  }
+    /**
+     * 激活插件方法,如果激活失败,直接抛出异常
+     *
+     * @access public
+     * @return string
+     * @throws Exception
+     */
+    public static function activate()
+    {
+        Helper::addRoute('sitemap', '/sitemap.xml', 'Sitemap_Action', 'action');
+        return _t('插件已激活');
+    }
 
-  /**
-   * 禁用插件方法,如果禁用失败,直接抛出异常
-   * 
-   * @static
-   * @access public
-   * @return string
-   * @throws Exception
-   */
-  public static function deactivate()
-  {
-    Helper::removeRoute('sitemap');
-    return _t('插件已禁用');
-  }
+    /**
+     * 禁用插件方法,如果禁用失败,直接抛出异常
+     *
+     * @static
+     * @access public
+     * @return string
+     * @throws Exception
+     */
+    public static function deactivate()
+    {
+        Helper::removeRoute('sitemap');
+        return _t('插件已禁用');
+    }
 
-  /**
-   * 获取插件配置面板
-   * 
-   * @access public
-   * @param Form $form 配置面板
-   * @return void
-   */
-  public static function config(Form $form)
-  {
-  }
+    /**
+     * 获取插件配置面板
+     *
+     * @access public
+     * @param Form $form 配置面板
+     * @return void
+     */
+    public static function config(Form $form)
+    {
+    }
 
-  /**
-   * 个人用户的配置面板
-   * 
-   * @access public
-   * @param Form $form
-   * @return void
-   */
-  public static function personalConfig(Form $form)
-  {
-  }
+    /**
+     * 个人用户的配置面板
+     *
+     * @access public
+     * @param Form $form
+     * @return void
+     */
+    public static function personalConfig(Form $form)
+    {
+    }
 
 }

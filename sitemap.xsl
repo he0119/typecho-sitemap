@@ -50,7 +50,7 @@
 				</style>
 			</head>
 			<body>
-				<h1>XML Sitemap</h1>				
+				<h1>XML Sitemap</h1>
 				<div id="content">
 					<table cellpadding="5">
 						<tr style="border-bottom:1px black solid;">
